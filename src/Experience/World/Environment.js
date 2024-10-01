@@ -22,7 +22,7 @@ export default class Environment
 
     setSunLight()
     {
-        this.sunLight = new THREE.DirectionalLight('#ffffff', 1)
+        this.sunLight = new THREE.DirectionalLight('#ffffff', 0.5)
         this.sunLight.castShadow = true
         this.sunLight.shadow.camera.far = 15
         this.sunLight.shadow.mapSize.set(1024, 1024)
@@ -66,15 +66,19 @@ export default class Environment
     setEnvironmentMap()
     {
         this.environmentMap = {}
+        this.backgroundMap = {}
 
         const pmremGenerator = new THREE.PMREMGenerator(this.experience.renderer.instance)
         pmremGenerator.compileEquirectangularShader()
 
-        this.environmentMap = pmremGenerator.fromEquirectangular(this.resources.items.hdrEnvironmentMapTexture).texture
+        this.environmentMap = pmremGenerator.fromEquirectangular(this.resources.items.hdrLightingMapTexture).texture
         this.environmentMap.intensity = 0.4
-
         this.scene.environment = this.environmentMap
-        this.scene.background = this.environmentMap
+
+        this.backgroundMap = pmremGenerator.fromEquirectangular(this.resources.items.hdrEnvironmentMapTexture).texture
+        this.scene.background = this.backgroundMap
+        // this.scene.backgroundIntensity = 0.1
+        this.scene.backgroundBlurriness = 0.5
 
         pmremGenerator.dispose()
 

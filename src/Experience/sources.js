@@ -5,6 +5,11 @@ export default [
         path: 'textures/environmentMap/env.hdr'
     },
     {
+        name: 'hdrLightingMapTexture',
+        type: 'hdrCubeTexture',
+        path: 'textures/environmentMap/the_sky_is_on_fire_1k.hdr'
+    },
+    {
         name: 'grassColorTexture',
         type: 'texture',
         path: 'textures/dirt/color.jpg'
