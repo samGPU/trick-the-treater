@@ -1,4 +1,10 @@
-# Three.js Journey
+# Trick the Treater
+### ThreeJS Journey Challenge 14
+
+## Info
+My entry to the ThreeJS Journey Challenge 14 - theme is Halloween.
+
+This is a low-poly style tower defense game created in a month.
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).

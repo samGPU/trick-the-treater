@@ -27,8 +27,8 @@ export default class Camera
         this.controls = new OrbitControls(this.instance, this.canvas)
 
         // Clamp pitch
-        this.controls.maxPolarAngle = Math.PI * 0.35
-        this.controls.minPolarAngle = Math.PI * 0.35
+        // this.controls.maxPolarAngle = Math.PI * 0.35
+        // this.controls.minPolarAngle = Math.PI * 0.35
 
         this.controls.enableDamping = true
     }

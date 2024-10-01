@@ -66,11 +66,17 @@ export default class Environment
     setEnvironmentMap()
     {
         this.environmentMap = {}
+
+        const pmremGenerator = new THREE.PMREMGenerator(this.experience.renderer.instance)
+        pmremGenerator.compileEquirectangularShader()
+
+        this.environmentMap = pmremGenerator.fromEquirectangular(this.resources.items.hdrEnvironmentMapTexture).texture
         this.environmentMap.intensity = 0.4
-        this.environmentMap.texture = this.resources.items.environmentMapTexture
-        this.environmentMap.texture.colorSpace = THREE.SRGBColorSpace
-        
-        this.scene.environment = this.environmentMap.texture
+
+        this.scene.environment = this.environmentMap
+        this.scene.background = this.environmentMap
+
+        pmremGenerator.dispose()
 
         this.environmentMap.updateMaterials = () =>
         {
