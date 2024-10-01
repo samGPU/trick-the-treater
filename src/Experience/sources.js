@@ -20,8 +20,8 @@ export default [
         path: 'models/Fox.glb'
     },
     {
-        name: 'world',
+        name: 'level',
         type: 'gltfModel',
-        path: 'models/World.glb'
+        path: 'models/Level.glb'
     }
 ]

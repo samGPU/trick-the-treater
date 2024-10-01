@@ -18,7 +18,7 @@ export default class Level
         }
 
         // Resource
-        this.resource = this.resources.items.world
+        this.resource = this.resources.items.level
 
         this.setModel()
         // this.setAnimation()
