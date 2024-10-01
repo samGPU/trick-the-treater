@@ -18,5 +18,10 @@ export default [
         name: 'foxModel',
         type: 'gltfModel',
         path: 'models/Fox.glb'
+    },
+    {
+        name: 'world',
+        type: 'gltfModel',
+        path: 'models/World.glb'
     }
 ]
