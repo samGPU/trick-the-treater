@@ -20,6 +20,9 @@ export default class Level
         // Resource
         this.resource = this.resources.items.level
 
+        this.TOWERS = {}
+        this.HIGHLIGHTS = {}
+
         this.setModel()
         // this.setAnimation()
     }
@@ -32,9 +35,25 @@ export default class Level
 
         this.model.traverse((child) =>
         {
+            // console.log(child.name, child)
             if(child instanceof THREE.Mesh)
             {
                 child.castShadow = true
+                if(!child.name.includes('path')) {
+                    child.receiveShadow = true
+                }
+
+                if(child.name.includes('-tower-')) {
+                    // Set the material to transparent
+                    child.material.transparent = true
+                    // Set the highlight child mesh to be invisible
+                    child.children[0].visible = false
+
+                    // Add the tower to the TOWERS object
+                    this.TOWERS[child.name] = child
+                    // Add the highlight to the HIGHLIGHTS object
+                    this.HIGHLIGHTS[child.name] = child.children[0]
+                }
             }
         })
     }
@@ -83,8 +102,18 @@ export default class Level
         }
     }
 
-    update()
+    update(currentIntersect)
     {
-        // this.animation.mixer.update(this.time.delta * 0.001)
+        // Loop through the HIGHLIGHT object and set any visible to false
+        for(const key in this.HIGHLIGHTS) {
+            // check if it is the currentIntersect
+            if(currentIntersect && currentIntersect.object.name === key) {
+                // set the highlight child mesh to be visible
+                this.HIGHLIGHTS[key].visible = true
+            } else {
+                // set the highlight child mesh to be invisible
+                this.HIGHLIGHTS[key].visible = false
+            }
+        }
     }
 }

@@ -19,9 +19,9 @@ export default class World
         })
     }
 
-    update()
+    update(currentIntersect)
     {
         if(this.level)
-            this.level.update()
+            this.level.update(currentIntersect)
     }
 }

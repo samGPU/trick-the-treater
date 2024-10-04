@@ -8,6 +8,8 @@ export default class Raycaster {
         this.scene = scene
         this.camera = camera
 
+        this.currentIntersect = null;
+
         window.addEventListener('mousemove', this.onMouseMove.bind(this))
         window.addEventListener('click', this.onClick.bind(this))
     }
@@ -21,9 +23,11 @@ export default class Raycaster {
         this.currentIntersect = this.intersects[0]
         
         if (this.currentIntersect) {
+            // if it is a tower, highlight it
             if(this.currentIntersect.object.name.includes('tower')) {
                 console.log(`Hovering over tower ${this.currentIntersect.object.name}`)
-                this.currentIntersect.object.visible = false
+                // set the highlight child mesh to be visible
+                this.currentIntersect.object.children[0].visible = true
             }
         }
     }
