@@ -7,6 +7,7 @@ import Camera from './Camera.js'
 import Renderer from './Renderer.js'
 import World from './World/World.js'
 import Resources from './Utils/Resources.js'
+import InteractionController from './Controllers/InteractionController.js'
 
 import sources from './sources.js'
 import Raycaster from './Interaction/Raycaster.js'
@@ -39,7 +40,8 @@ export default class Experience
         this.camera = new Camera()
         this.renderer = new Renderer()
         this.world = new World()
-        this.raycaster = new Raycaster(this.scene, this.camera.instance)
+        this.interactionController = new InteractionController(this.world);
+        this.raycaster = new Raycaster(this.scene, this.camera.instance, this.interactionController)
 
         // Resize event
         this.sizes.on('resize', () =>

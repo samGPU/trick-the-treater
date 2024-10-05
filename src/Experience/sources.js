@@ -20,12 +20,12 @@ export default [
         path: 'textures/dirt/normal.jpg'
     },
     {
-        name: 'foxModel',
+        name: 'towerModel',
         type: 'gltfModel',
-        path: 'models/Fox.glb'
+        path: 'models/Tower.glb'
     },
     {
-        name: 'level',
+        name: 'levelModel',
         type: 'gltfModel',
         path: 'models/Level.glb'
     }

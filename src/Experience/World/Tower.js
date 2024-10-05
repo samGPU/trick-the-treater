@@ -18,15 +18,16 @@ export default class Tower
         }
 
         // Resource
-        this.resource = model;
+        this.model = model
+        this.highlight = this.model.children[0];
+        this.towerStack = this.resources.items.towerModel.scene.children[0].clone()
+        this.towerStack.position.y += 100;
+        this.model.add(this.towerStack);
 
-        this.setModel()
+        this.name = model.name
+        this.state = 'empty'
+
         // this.setAnimation()
-    }
-
-    setModel()
-    {
-        
     }
 
     setAnimation()
@@ -73,8 +74,27 @@ export default class Tower
         }
     }
 
-    update()
+    update(currentHoverIntersect)
     {
+        if(currentHoverIntersect) {
+            // hover highlight only needed on empty state
+            if(this.state === 'empty') {
+                // if the current hover intersect isn't this one - hide the highlight
+                if(currentHoverIntersect.object.name !== this.name) {
+                    this.highlight.visible = false;
+                }
+            }
+        }
+
         // this.animation.mixer.update(this.time.delta * 0.001)
+    }
+
+    clicked() {
+        if(this.state === 'empty') {
+            // Move from empty state to built state
+            this.state = 'built'
+            this.towerStack.position.y -= 100;
+            this.highlight.position.y += 100;
+        }
     }
 }

@@ -1,12 +1,13 @@
 import * as THREE from 'three'
 
 export default class Raycaster {
-    constructor(scene, camera) {
+    constructor(scene, camera, interactionController) {
         this.raycaster = new THREE.Raycaster()
         this.mouse = new THREE.Vector2()
         this.intersects = []
         this.scene = scene
         this.camera = camera
+        this.interactionController = interactionController;
 
         this.currentIntersect = null;
 
@@ -24,8 +25,7 @@ export default class Raycaster {
         
         if (this.currentIntersect) {
             // if it is a tower, highlight it
-            if(this.currentIntersect.object.name.includes('tower')) {
-                console.log(`Hovering over tower ${this.currentIntersect.object.name}`)
+            if(this.currentIntersect.object.name.includes('-tower-')) {
                 // set the highlight child mesh to be visible
                 this.currentIntersect.object.children[0].visible = true
             }
@@ -33,9 +33,10 @@ export default class Raycaster {
     }
 
     onClick() {
-        // this.raycaster.setFromCamera(this.mouse, this.camera) // I don't think I need to set the raycaster again as the mouse will have moved to this location
-        this.intersects = this.raycaster.intersectObjects(this.scene.children, true)
-
-        this.currentIntersect = this.intersects[0]
+        if(this.currentIntersect) {
+            if(this.currentIntersect.object.name.includes('-tower-')) {
+                this.interactionController.clickOnTower(this.currentIntersect.object);
+            }
+        }
     }
 }

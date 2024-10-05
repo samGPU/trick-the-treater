@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
+import Tower from './Tower.js'
 
 export default class Level
 {
@@ -18,7 +19,8 @@ export default class Level
         }
 
         // Resource
-        this.resource = this.resources.items.level
+        this.resource = this.resources.items.levelModel
+        this.turretStack = null;
 
         this.TOWERS = {}
         this.HIGHLIGHTS = {}
@@ -50,12 +52,18 @@ export default class Level
                     child.children[0].visible = false
 
                     // Add the tower to the TOWERS object
-                    this.TOWERS[child.name] = child
+                    this.TOWERS[child.name] = new Tower(child)
                     // Add the highlight to the HIGHLIGHTS object
                     this.HIGHLIGHTS[child.name] = child.children[0]
                 }
+
+                if(child.name === 'structure') {
+                    this.turretStack = child;
+                }
             }
         })
+
+        console.log(this.turretStack)
     }
 
     setAnimation()
@@ -102,18 +110,17 @@ export default class Level
         }
     }
 
-    update(currentIntersect)
+    update(currentHoverIntersect)
     {
-        // Loop through the HIGHLIGHT object and set any visible to false
-        for(const key in this.HIGHLIGHTS) {
-            // check if it is the currentIntersect
-            if(currentIntersect && currentIntersect.object.name === key) {
-                // set the highlight child mesh to be visible
-                this.HIGHLIGHTS[key].visible = true
-            } else {
-                // set the highlight child mesh to be invisible
-                this.HIGHLIGHTS[key].visible = false
-            }
+        // Get the current tower that is being hovered
+        let currentTower;
+        if(currentHoverIntersect && currentHoverIntersect.object.name) {
+            currentTower = this.TOWERS[currentHoverIntersect.object.name]
+        }
+
+        // Update each tower
+        for(const key in this.TOWERS) {
+            this.TOWERS[key].update(currentHoverIntersect)
         }
     }
 }
