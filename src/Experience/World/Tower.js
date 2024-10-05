@@ -21,6 +21,7 @@ export default class Tower
         this.model = model
         this.highlight = this.model.children[0];
         this.towerStack = this.resources.items.towerModel.scene.children[0].clone()
+        // this.towerStack.receiveShadow = false
         this.towerStack.position.y += 100;
         this.model.add(this.towerStack);
 
