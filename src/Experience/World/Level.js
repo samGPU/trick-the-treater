@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
 import Tower from './Tower.js'
+import Portal from './Portal.js'
 
 export default class Level
 {
@@ -41,6 +42,7 @@ export default class Level
             if(child instanceof THREE.Mesh)
             {
                 child.castShadow = true
+
                 if(!child.name.includes('path')) {
                     child.receiveShadow = true
                 }
@@ -59,6 +61,12 @@ export default class Level
 
                 if(child.name === 'structure') {
                     this.turretStack = child;
+                }
+
+                // console.log(child.name)
+
+                if(child.name === 'portal-plane') {
+                    this.portalPlane = new Portal(child);
                 }
             }
         })
